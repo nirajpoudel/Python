@@ -96,7 +96,7 @@ class AdminPanel:
         pass
     def create_table1(self):
         c.execute('CREATE TABLE IF NOT EXISTS ToolsInfo(NameOfTool NOT NULL, ToolType NOT NULL, ToolDescription NOT NULL, ToolCondition NOT NULL, HalfDayRate NOT NULL, FullDayRate NOT NULL, UploadDate NOT NULL)')
-        c.execute('CREATE TABLE IF NOT EXISTS MyToolsInfo(NameOfTool NOT NULL, ToolType NOT NULL, ToolDescription NOT NULL, ToolCondition NOT NULL, HalfDayRate NOT NULL, FullDayRate NOT NULL, UploadDate NOT NULL)')
+        c.execute('CREATE TABLE IF NOT EXISTS MyToolsInfo(NameOfTool NOT NULL, ToolType NOT NULL, ToolDescription NOT NULL, ToolCondition NOT NULL, HalfDayRate NOT NULL, FullDayRate NOT NULL, HireDate NOT NULL)')
     def admin_login(self):
         self.username = input('Username: ')
         self.password = input('Password: ')
@@ -398,8 +398,26 @@ class UserPanel(AdminPanel):
                     
                     choose = input("\nDo you want to continue or go back?: ")
                     if choose=="yes":
+                        c.execute('SELECT * FROM ToolsInfo')
+                        data=c.fetchall()
+                        if data:
+                            for i in data:
+                                self.a=i[0]
+                                self.b=i[1]
+                                self.c=i[2]
+                                self.d=i[3]
+                                self.e=i[4]
+                                self.f=i[5]
+                                self.curr_date = datetime.datetime.now()
+                                self.g = self.curr_date.strftime('%Y-%m-%d')
+                            c.execute('INSERT INTO MyToolsInfo(NameOfTool, ToolType, ToolDescription, ToolCondition, HalfDayRate, FullDayRate, HireDate) VALUES(?,?,?,?,?,?,?)',
+                                      (self.a,self.b,self.c,self.d,self.e,self.f,self.g))
+                            conn.commit()
+                        else:
+                            print("NO data found")
                         c.execute("DELETE FROM ToolsInfo WHERE NameOfTool=?", (self.name_of_tool,))
                         conn.commit()
+                        data=c.fetchall()
                         choice = input("\nDo you want delivery or not?: ")
                         if choice=="yes":
                             address=input("Enter your address: ")
@@ -449,9 +467,15 @@ class UserPanel(AdminPanel):
                 a=[
                     ['Tool Name',tool[0]],
                      ['Tool type',tool[1]],
-                     ['Tool Description',tool[2]]
+                     ['Tool Description',tool[2]],
+                     ['Hired Date',tool[6]]
                      ]
                 print(columnar(a))
+            choice=input("\nPress Enter or any key to redirect back to Home Page!! ")
+            if choice=='':
+                self.home_items()
+            else:
+                self.home_items()
         else:
             print("\nNo tools Added yet!!")
             choice=input("\nPress Enter or any key to redirect back to Home Page!! ")
