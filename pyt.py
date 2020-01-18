@@ -6,6 +6,7 @@ from tkinter import messagebox
 import tkinter.messagebox as me
 import sqlite3
 from tkinter import Frame
+from datetime import date
 
 conn = sqlite3.connect('form.db')
 
@@ -586,7 +587,9 @@ class AllTools:
     def __init__(self, master):
         self.master=master
         self.frame=Frame(master)
-        self.lab=Label(master, text='ALL items').pack()
+        #self.lab=Label(master, text='ALL items').pack()
+        Button(master, text='Go to Home', font=("arial", 13, "bold"), width=10, bg='#1f3a93', fg='white'
+               , command=self.back).place(x=250, y=350)
         c.execute('SELECT * FROM ToolsInfo')
         data=c.fetchall()
         if data:
@@ -601,6 +604,21 @@ class AllTools:
                 self.lbl=Label(master, text=('Tool Condition', d)).pack()
                 self.lbl=Label(master, text=('Tool Half Day Rate', e)).pack()
                 self.lbl=Label(master, text=('Tool Full Day Rate', f)).pack()
+        else:
+            me.showerror("Items error",'NO items found')
+            self.master.withdraw()
+            self.newWindow = Toplevel(self.master)
+            self.app = UserHome(self.newWindow)
+            self.newWindow.geometry('650x650')
+            self.newWindow.title("User Home")
+            
+    def back(self):
+            self.master.withdraw()
+            self.newWindow = Toplevel(self.master)
+            self.app = UserHome(self.newWindow)
+            self.newWindow.geometry('650x650')
+            self.newWindow.title("User Home")
+            
 #======================================================================================================
     
 class SearchTools(Frame):
@@ -633,12 +651,142 @@ class SearchTools(Frame):
 
 #========================================================================================================
 
-class HireTools():
-    pass
+class HireTools(UploadTools):
+    def __init__(self,master):
+        global tool_name
+        self.master=master
+        self.frame=Frame(master)
+        self.label_toolname = Label(master, text="Tool Name", width=20, font=("arial", 17))
+        self.label_toolname.place(x=30, y=165)
+        self.entry_toolname = Entry(master, bd=5, font=("arial", 13))
+        self.entry_toolname.place(x=280, y=165, width=200, height=38)
+        self.label_hireDate = Label(master, text="Hire Date", width=20, font=("arial", 17))
+        self.label_hireDate.place(x=30, y=235)
+        self.Date = date.today()
+        self.entry_hireDate = Entry(master, bd=5, font=("arial", 13))
+        self.entry_hireDate.place(x=280, y=235, width=200, height=38)
+        self.entry_hireDate.insert(0, self.Date)
+        self.label_hireDays = Label(master, text="Hire Days", width=20, font=("arial", 17))
+        self.label_hireDays.place(x=23, y=305)
+        self.entry_hireDays = Entry(master, bd=5, font=("arial", 13))
+        self.entry_hireDays.place(x=280, y=305, width=200, height=38)
+        self.entry_hireDays.insert(0, " Max 3 Days")
+        self.label_rate = Label(master, text="Tool Rate", width=20, font=("arial", 17))
+        self.label_rate.place(x=30, y=375)
+        self.tool_rate = Entry(master, bd=5, font=("arial", 13))
+        self.tool_rate.place(x=280, y=375, width=90, height=38)
+        self.tool_rate.insert(0, "200")
+        self.label_fullrate = Label(master, text="Full Day", width=20, font=("arial", 10))
+        self.label_fullrate.place(x=243, y=418)
+        self.tool_rate2 = Entry(master, bd=5, font=("arial", 13))
+        self.tool_rate2.place(x=390, y=375, width=90, height=38)
+        self.tool_rate2.insert(0, "100")
+        self.label_halfrate = Label(master, text="Half Day", width=20, font=("arial", 10))
+        self.label_halfrate.place(x=353, y=418)
+        Button(master, text='Hire This Tool', font=("arial", 13, "bold"), width=15, bg='#1f3a93', fg='white'
+               , command=self.hire_tools).place(x=100, y=464)
+        Button(master, text='Cancel', font=("arial", 13, "bold"), width=10, bg='#1f3a93', fg='white'
+               , command=self.cancel).place(x=320, y=464)
+
+    def hire_tools(self):
+        self.nameTool = self.entry_toolname.get()
+        self.HireDate = self.entry_hireDate.get()
+        self.HireDays = self.entry_hireDays.get()
+        self.FullRate = self.tool_rate2.get()
+        self.HalfRate = self.tool_rate.get()
+        if (len(self.nameTool)==0 or len(self.HireDays)==0):
+            me.showerror("Tool Upload Error","Please insert the correct credientials")
+        else:
+            self.nameTool = self.entry_toolname.get()
+            self.HireDate = self.entry_hireDate.get()
+            self.HireDays = self.entry_hireDays.get()
+            self.FullRate = float(self.tool_rate2.get())
+            self.HalfRate = float(self.tool_rate.get())
+            self.InsurancePlus = self.HalfRate + 10.00
+            self.InsurancePlus2 = self.FullRate + 10.00
+            self.Date = date.today()
+            c.execute('CREATE TABLE IF NOT EXISTS MyTools(ToolName NOT NULL, HireDate NOT NULL, HireDays NOT NULL, FullRate NOT NULL, HalfRate NOT NULL,InsuranceHalf NOT NULL, InsuranceFull NOT NULL)')
+            c.execute('INSERT INTO MyTools(ToolName, HireDate, HireDays, FullRate, HalfRate, InsuranceHalf, InsuranceFull) VALUES(?,?,?,?,?,?,?)',
+                      (self.nameTool, self.HireDate, self.HireDays, self.FullRate, self.HalfRate, self.InsurancePlus, self.InsurancePlus2))
+            c.execute("DELETE FROM ToolsInfo WHERE ToolName=?", (self.nameTool,))
+            conn.commit()
+            
+            me.showinfo("Hire Success","Successfully hire the tool")
+            self.master.withdraw()
+            self.newWindow = Toplevel(self.master)
+            self.app = UserHome(self.newWindow)
+            self.newWindow.geometry('650x650')
+            self.newWindow.title("User Home")
+    def cancel(self):
+            self.master.withdraw()
+            self.newWindow = Toplevel(self.master)
+            self.app = UserHome(self.newWindow)
+            self.newWindow.geometry('650x650')
+            self.newWindow.title("User Home")
+        
+             
 
 #=========================================================================================================
-class ReturnTools():
-    pass
+class ReturnTools(HireTools):
+    def __init__(self,master):
+        self.master=master
+        self.frame=Frame(master)
+        self.label_toolname = Label(master, text="Tool Name", width=20, font=("arial", 17), bg='white')
+        self.label_toolname.place(x=30, y=165)
+        self.entry_toolname = Entry(master, bd=5, font=("arial", 13))
+        self.entry_toolname.place(x=280, y=165, width=200, height=38)
+        Button(master, text='Return this Tool', font=("arial", 13, "bold"), width=15, bg='#1f3a93', fg='white'
+               , command=self.return_tools).place(x=100, y=464)
+        Button(master, text='Cancel', font=("arial", 13, "bold"), width=10, bg='#1f3a93', fg='white'
+               , command=self.back).place(x=320, y=464)
+        c.execute('SELECT * FROM MyTools')
+        data=c.fetchall()
+        if data:
+            self.lbl=Label(master, text=data, bg='white').place(x=40,y=50)
+        else:
+            me.showerror("Items error",'NO items to return')
+            self.master.withdraw()
+            self.newWindow = Toplevel(self.master)
+            self.app = UserHome(self.newWindow)
+            self.newWindow.geometry('650x650')
+            self.newWindow.title("All tool itmes")
+        
+
+    def return_tools(self):
+        self.nameTool = self.entry_toolname.get()
+        c.execute('SELECT * FROM MyTools')
+        data=c.fetchall()
+        if data:
+            for value in data:
+                self.a=value[0]
+                self.b=value[1]
+                self.d=value[2]
+                self.e=value[3]
+                self.f=value[4]
+                self.g=value[5]
+                self.h=value[6]
+
+        c.execute('INSERT INTO ToolsInfo(ToolName, ToolDescription, ToolCondition, ToolHalfDay, ToolFullDay) VALUES(?,?,?,?,?)',
+                      (self.a, self.b, self.d, self.e, self.f))
+        c.execute("DELETE FROM MyTools WHERE ToolName=?", (self.nameTool,))
+        conn.commit()
+        me.showinfo("Return Successful",'Successfully return your tool')
+        self.master.withdraw()
+        self.newWindow = Toplevel(self.master)
+        self.app = UserHome(self.newWindow)
+        self.newWindow.geometry('650x650')
+        self.newWindow.title("All tool itmes")
+
+            
+    def back(self):
+            self.master.withdraw()
+            self.newWindow = Toplevel(self.master)
+            self.app = UserHome(self.newWindow)
+            self.newWindow.geometry('650x650')
+            self.newWindow.title("User Home")
+        
+        
+        
 
 #=========================================================================================================
 class PaymentTools():
@@ -652,12 +800,13 @@ root.title('Shared Power')
 root.geometry('650x650')
 #obj=MainPage(root)
 #obj.progressBar()
-Login(root)
+#Login(root)
 #Registration(root)
-#UserHome(root)
-#UploadTools(root)
+UserHome(root)
 #SecondPage(root)
 #UploadTools(root)
 #SearchTools(root)
+#HireTools(root)
+#ReturnTools(root)
 root.configure(bg="white")
 #root.mainloop()
