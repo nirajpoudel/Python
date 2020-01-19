@@ -11,7 +11,6 @@ import datetime
 from tkinter import Tk, filedialog
 
 conn = sqlite3.connect('form.db')
-
 c = conn.cursor()
 class MainPage:
     def __init__(self,master):
@@ -70,9 +69,14 @@ class Login(Frame):
         txtpass = Entry(Login_Frame, bd=5, width=18, relief=GROOVE, textvariable=self.password, show='*', font=("", 15))
         txtpass.grid(row=2, column=1,
                      padx=20)
-        btn_log = Button(Login_Frame, text="Login", width=8, font=("times new roman", 14, "bold"),
+        btn_log = Button(master, text="Login", width=8, font=("times new roman", 14, "bold"),
                          bg="#0dc1a6", fg="green", bd=4, command=self.login_info)
-        btn_log.grid(row=3, column=1, pady=10)
+        btn_log.place(x=300, y=450)
+
+        btn_can = Button(master, text="Cancel", width=8, font=("times new roman", 14, "bold"),
+                         bg="#0dc1a6", fg="green", bd=4, command=self.back)
+        btn_can.place(x=100,y=450)
+        self.lbl=Label(master,text="@copyright from developers", bg="white").place(x=150,y=620)
 
     def login_info(self):
         find_user = ('SELECT * FROM UserInfo WHERE Username = ? and Password = ?')
@@ -107,10 +111,17 @@ class Login(Frame):
         else:
             me.showerror('Oops!','Username Not Found.')
             self.master.withdraw()
-            self.newWindow = Toplevel(self.master)
+            self.newWindow = Toplevel((self.master),bg="white")
             self.app = Login(self.newWindow)
             self.newWindow.geometry('650x650')
             self.newWindow.title("Login Page")
+
+    def back(self):
+            self.master.withdraw()
+            self.newWindow = Toplevel((self.master),bg='white')
+            self.app = SecondPage(self.newWindow)
+            self.newWindow.geometry('650x650')
+            self.newWindow.title("User Home")
 
 #=======================================================================================================
             
@@ -164,9 +175,14 @@ class Registration(Frame):
         txtpass = Entry(Login_Frame, bd=5, width=18, relief=GROOVE, textvariable=self.password, show='*', font=("", 15))
         txtpass.grid(row=4, column=1,
                      padx=20)
-        btn_log = Button(Login_Frame, text="Register", width=8, bd=4, font=("times new roman", 14, "bold"),
+        btn_log = Button(master, text="Register", width=8, bd=4, font=("times new roman", 14, "bold"),
                          bg="#0dc1a6", fg="green", command=self.user_info)
-        btn_log.grid(row=5, column=1, pady=10)
+        btn_log.place(x=300, y=550)
+        
+        btn_can = Button(master, text="Cancel", width=8, font=("times new roman", 14, "bold"),
+                         bg="#0dc1a6", fg="green", bd=4, command=self.back)
+        btn_can.place(x=100,y=550)
+        self.lbl=Label(master,text="@copyright from developers", bg="white").place(x=150,y=620)
 
     def user_info(self):
         self.firstname=self.firstname.get()
@@ -177,7 +193,7 @@ class Registration(Frame):
         if (len(self.username)==0 and len(self.password)==0):
             me.showerror('Registration Error','Fields must not be empty')
             self.master.withdraw()
-            self.newWindow = Toplevel(self.master)
+            self.newWindow = Toplevel((self.master), bg='white')
             self.app = Registration(self.newWindow)
             self.newWindow.geometry('650x650')
             self.newWindow.title("Registration page")
@@ -194,39 +210,55 @@ class Registration(Frame):
             self.newWindow.geometry('650x650')
             self.newWindow.title("Login page")
 
+    def back(self):
+            self.master.withdraw()
+            self.newWindow = Toplevel((self.master),bg='white')
+            self.app = SecondPage(self.newWindow)
+            self.newWindow.geometry('650x650')
+            self.newWindow.title("User Home")
+
 
 
 class SecondPage(Frame):
     def __init__(self,master):
         self.master=master
         self.frame = Frame(master, bg='white')
+        #Label(master,text="Lenden: The Customer's Satisfaction",bg='white', fg='black').place(x=100,y=0)
         
 
-        self.namaste_icon=ImageTk.PhotoImage(file="images/namaste.png")
+        self.namaste_icon=ImageTk.PhotoImage(file="images/team.jpg")
         
         login_frame=Frame(master, bg="white")
-        login_frame.place(x=60,y=0)
+        login_frame.place(x=60,y=50)
         logolbl1=Label(master, image=self.namaste_icon, bg='white')
-        logolbl1.place(x=50,y=0)
+        logolbl1.place(x=80,y=100)
+
+##        self.photo = Image.open("images/namaste.png")
+##        self.photo=self.photo.resize((300,300), Image.ANTIALIAS)
+##        self.pic=ImageTk.PhotoImage(self.photo)
+##        self.btn=Button(master, image=self.pic).place(x=100,y=0)
+        Label(master,text="Lenden:",bg='white', fg='black', font=('new times roman',25)).place(x=150,y=10)
+        Label(master,text="The customer's satisfaction",bg='white', fg='black', font=('new times roman',18)).place(x=150,y=50)
         
         self.photo = Image.open("images/login.jpg")
-        self.photo=self.photo.resize((250,50), Image.ANTIALIAS)
+        self.photo=self.photo.resize((180,50), Image.ANTIALIAS)
         self.pic=ImageTk.PhotoImage(self.photo)
-        self.btn=Button(master, image=self.pic, bd=3, command=self.logn).place(x=160,y=430)
+        self.btn=Button(master, image=self.pic, bd=1, command=self.logn, bg='white').place(x=200,y=410)
 
-        self.photo1 = Image.open("images/register.jpg")
-        self.photo1=self.photo1.resize((250,60), Image.ANTIALIAS)
+        self.photo1 = Image.open("images/register.png")
+        self.photo1=self.photo1.resize((180,50), Image.ANTIALIAS)
         self.pic1=ImageTk.PhotoImage(self.photo1)
-        self.btn1=Button(master, image=self.pic1, bd=3, command=self.reg).place(x=160,y=530)
+        self.btn1=Button(master, image=self.pic1, bd=2, command=self.reg, bg='white').place(x=200,y=510)
+        self.lbl=Label(master,text="@copyright from developers", bg="white").place(x=150,y=620)
     def logn(self):
         self.master.withdraw()
-        self.newWindow = Toplevel(self.master)
+        self.newWindow = Toplevel((self.master),bg='white')
         self.app = Login(self.newWindow)
         self.newWindow.geometry('650x650')
         self.newWindow.title("Login window")
     def reg(self):
         self.master.withdraw()
-        self.newWindow = Toplevel(self.master)
+        self.newWindow = Toplevel((self.master),bg='white')
         self.app = Registration(self.newWindow)
         self.newWindow.geometry('650x650')
         self.newWindow.title("Signin window")
@@ -336,7 +368,7 @@ class UserHome(Frame):
 #========================================================================================================
     def search(self):
         self.master.withdraw()
-        self.newWindow = Toplevel(self.master)
+        self.newWindow = Toplevel((self.master),bg='white')
         self.app = SearchTools(self.newWindow)
         self.newWindow.geometry('650x650')
         self.newWindow.title("Search Tools itmes")
@@ -362,7 +394,7 @@ class UserHome(Frame):
 
     def back(self):
             self.master.withdraw()
-            self.newWindow = Toplevel(self.master)
+            self.newWindow = Toplevel((self.master),bg='white')
             self.app = UserHome(self.newWindow)
             self.newWindow.geometry('650x650')
             self.newWindow.title("User Home")
@@ -370,35 +402,35 @@ class UserHome(Frame):
 
     def all_items(self):
         self.master.withdraw()
-        self.newWindow = Toplevel(self.master)
+        self.newWindow = Toplevel((self.master),bg='white')
         self.app = AllTools(self.newWindow)
         self.newWindow.geometry('650x650')
         self.newWindow.title("All tool itmes")
 
     def hire(self):
         self.master.withdraw()
-        self.newWindow = Toplevel(self.master)
+        self.newWindow = Toplevel((self.master),bg='white')
         self.app = HireTools(self.newWindow)
         self.newWindow.geometry('650x650')
         self.newWindow.title("Hire Tools")
                                      
     def returns(self):
         self.master.withdraw()
-        self.newWindow = Toplevel(self.master)
+        self.newWindow = Toplevel((self.master),bg='white')
         self.app = ReturnTools(self.newWindow)
         self.newWindow.geometry('650x650')
         self.newWindow.title("Return Tools")
 
     def profile(self):
         self.master.withdraw()
-        self.newWindow = Toplevel(self.master)
+        self.newWindow = Toplevel((self.master),bg='white')
         self.app = AdminHome(self.newWindow)
         self.newWindow.geometry('650x650')
         self.newWindow.title("Profile")
 
     def payment(self):
         self.master.withdraw()
-        self.newWindow = Toplevel(self.master)
+        self.newWindow = Toplevel((self.master),bg='white')
         self.app = PaymentTools(self.newWindow)
         self.newWindow.geometry('650x650')
         self.newWindow.title("Payment Tools")
@@ -414,7 +446,7 @@ class UserHome(Frame):
 
     def calendaar(self):
         self.master.withdraw()
-        self.newWindow = Toplevel(self.master)
+        self.newWindow = Toplevel((self.master),bg='white')
         self.app = AdminHome(self.newWindow)
         self.newWindow.geometry('650x650')
         self.newWindow.title("Calendar")
@@ -500,21 +532,21 @@ class AdminHome(Frame):
 
     def all_tools(self):
         self.master.withdraw()
-        self.newWindow = Toplevel(self.master)
+        self.newWindow = Toplevel((self.master),bg='white')
         self.app = AllTools(self.newWindow)
         self.newWindow.geometry('650x650')
         self.newWindow.title("All tools")
 
     def upload(self):
         self.master.withdraw()
-        self.newWindow = Toplevel(self.master)
+        self.newWindow = Toplevel((self.master),bg='white')
         self.app = UploadTools(self.newWindow)
         self.newWindow.geometry('650x650')
         self.newWindow.title("Profile")
 
     def profile(self):
         self.master.withdraw()
-        self.newWindow = Toplevel(self.master)
+        self.newWindow = Toplevel((self.master),bg='white')
         self.app = AdminHome(self.newWindow)
         self.newWindow.geometry('650x650')
         self.newWindow.title("Profile")
@@ -523,14 +555,14 @@ class AdminHome(Frame):
         me.showwarning("Logout",
                        "Are You sure want to LogOut?")
         self.master.withdraw()
-        self.newWindow = Toplevel(self.master)
+        self.newWindow = Toplevel((self.master),bg='white')
         self.app = Login(self.newWindow)
         self.newWindow.geometry('650x650')
         self.newWindow.title("Login Form")
 
     def calendaar(self):
         self.master.withdraw()
-        self.newWindow = Toplevel(self.master)
+        self.newWindow = Toplevel((self.master),bg='white')
         self.app = AdminHome(self.newWindow)
         self.newWindow.geometry('650x650')
         self.newWindow.title("Calendar")
@@ -570,8 +602,9 @@ class UploadTools(Frame):
         self.label_halfrate.place(x=80,y=400)
         self.entry_toolrate2 = Entry(master, bd=5, font=("arial", 13), textvariable=self.tool_fullday)
         self.entry_toolrate2.place(x=320, y=400, width=90, height=38)
-        Button(master, text='Upload tool',font=("arial", 13,"bold"),width=10,bg='Midnight blue',fg='white', command=self.uptools).place(x=100,y=464)
-        Button(master, text='Upload image',font=("arial", 13,"bold"),width=10,bg='Midnight blue',fg='white', command=self.upload_image).place(x=350,y=464)
+        Button(master, text='Upload tool',font=("arial", 13,"bold"),width=10,bg='maroon',fg='white', command=self.uptools).place(x=50,y=475)
+        Button(master, text='Upload image',font=("arial", 13,"bold"),width=10,bg='maroon',fg='white', command=self.upload_image).place(x=250,y=475)
+        Button(master, text='Cancel',font=("arial", 13,"bold"),width=10,bg='maroon',fg='white', command=self.back).place(x=450,y=475)
         self.lbl=Label(master,text="@copyright from developers", bg="white").place(x=150,y=620)
 
     def uptools(self):
@@ -583,7 +616,7 @@ class UploadTools(Frame):
         if (len(self.tool_name)==0 and len(self.tool_description)==0 and len(self.tool_condition)==0 and len(self.tool_halfday)==0 and len(self.tool_fullday)==0):
             me.showerror('Incorrect Credientitals','No fields must be empty')
             self.master.withdraw()
-            self.newWindow = Toplevel(self.master)
+            self.newWindow = Toplevel((self.master),bg='white')
             self.app = UploadTools(self.newWindow)
             self.newWindow.geometry('650x650')
             self.newWindow.title("Upload tools")
@@ -594,128 +627,61 @@ class UploadTools(Frame):
                     (self.tool_name, self.tool_description, self.tool_condition, self.tool_halfday, self.tool_fullday))
             conn.commit()
             self.master.withdraw()
-            self.newWindow = Toplevel(self.master)
+            self.newWindow = Toplevel((self.master),bg='white')
             self.app = AdminHome(self.newWindow)
             self.newWindow.geometry('650x650')
             self.newWindow.title("Home page")
     
 
     def upload_image(self):
-
             me.showwarning("Before Uploading TooolImage!",
-
                     "You should upload details of tool first then you need to upload Tool Image.\n If you have uploaded ToolDetails then Click OK  to continue")
-
-
-            self.newWindow = Toplevel(self.master)
-
+            self.newWindow = Toplevel((self.master),bg='white')
             self.app = UploadImage(self.newWindow)
-
+            self.newWindow.geometry('650x650')
             self.newWindow.title("Upload Tools Form")
-
-
+    def back(self):
+            self.master.withdraw()
+            self.newWindow = Toplevel((self.master),bg='white')
+            self.app = AdminHome(self.newWindow)
+            self.newWindow.geometry('650x650')
+            self.newWindow.title("User Home")
 
 class UploadImage(Frame):
-
     def __init__(self, master):
-
         self.master = master
-
         self.create_widgets()
-
         self.master.resizable(False, False)
 
-
-
     def create_widgets(self):
-
-
-
         self.select = Button(self.master,text='Select Image', font=("arial", 13, "bold"), bg="green", fg='white',command=self.select_image)
-
         self.select.pack()
-
         self.canvas = Canvas(self.master, width= 400, height=400, bg="grey")
-
         self.canvas.pack()
-
-
-
-        self.store = Button(self.master, text='Store Image', font=("arial", 13, "bold"), bg="#e37b17", fg='white',
-
-                            command=self.store_image)
-
+        self.store = Button(self.master, text='Store Image', font=("arial", 13, "bold"), bg="#e37b17", fg='white',command=self.store_image)
         self.store.pack()
 
-
-
-
-
     def select_image(self):
-
         global file_path
-
-
-
         file_path = filedialog.askopenfilename()
-
         des = Image.open(file_path)
-
         bg_image = ImageTk.PhotoImage(des)
-
         self.canvas.bg_image = bg_image
-
         self.canvas.create_image(200 , 200, image=self.canvas.bg_image)
-
         print(file_path)
-
-
-
     def store_image(self):
-
-
-
-
-
-
-
-        #print("The selected tool image has been uploaded to our database.")
-
-
-
         self.store = file_path
-
-
-
         file = open("Text File Handling\YUploadTools.txt", "a")
-
         file.write("ToolImage:    ")
-
         file.write(self.store)
-
         file.write("\n")
-
         file.close()
-
-
-
         me.showinfo("Successfully Uploaded ToolImage!", "Your selected image is uploaded in ToolImage Database.")
-
         self.master.withdraw()
-
-
-
-        # print('Button is pressed!')
-
-        # self.RegistrationFrame.destroy()
-
-        self.newWindow = Toplevel(self.master)
-
+        self.newWindow = Toplevel((self.master),bg='white')
         self.app = AdminHome(self.newWindow)
-
-        self.newWindow.geometry('650x550+450+140')
-
-        self.newWindow.title("Upload Tools Form")
+        self.newWindow.geometry('650x650')
+        self.newWindow.title("Admin Home")
 
 
 
@@ -724,10 +690,13 @@ class AllTools:
     def __init__(self, master):
         self.master=master
         self.frame=Frame(master)
-        #self.lab=Label(master, text='ALL items').pack()
-        Button(master, text='Go to Home', font=("arial", 13, "bold"), width=10, bg='#1f3a93', fg='white'
-
-               , command=self.back).place(x=250, y=350)
+        self.pay_icon=ImageTk.PhotoImage(file="images/view.jpg")
+        login_frame=Frame(master, bg="white")
+        login_frame.place(x=0,y=0)
+        logolbl1=Label(master, image=self.pay_icon, bg='white')
+        logolbl1.place(x=0,y=0)
+        self.lab=Label(master, text='ALL Tools',font=('new times roman',18), bg='white', fg='blue').place(x=150,y=20)
+        Button(master, text='Go to Home', font=("arial", 13, "bold"), width=10, bg='maroon', fg='white', command=self.back).place(x=250, y=550)
         c.execute('SELECT * FROM ToolsInfo')
         data=c.fetchall()
         if data:
@@ -737,27 +706,22 @@ class AllTools:
                 self.d=elem[2]
                 self.e=elem[3]
                 self.f=elem[4]
-            labl1=Label(master,text='Tool Name').place(x=20,y=100)
-            lbl2=Label(master, text='Tool Description').place(x=20,y=130)
-            lbl3=Label(master, text='Tool Condition').place(x=20,y=160)
-            lbl4=Label(master, text='Tool HalfDay rate').place(x=20,y=190)
-            lbl5=Label(master, text='Tool FullDay rate').place(x=20,y=220)
-            labl=Label(master, text=(self.a)).place(x=200,y=100)
-            lab2=Label(master, text=(self.b)).place(x=200,y=130)
-            lab3=Label(master, text=(self.d)).place(x=200,y=160)
-            lab4=Label(master, text=(self.e)).place(x=200,y=190)
-            lab4=Label(master, text=(self.f)).place(x=200,y=220)
+            labl1=Label(master,text='Tool Name',bg='white',fg='blue').place(x=20,y=100)
+            lbl2=Label(master, text='Tool Description',bg='white',fg='blue').place(x=20,y=130)
+            lbl3=Label(master, text='Tool Condition',bg='white',fg='blue').place(x=20,y=160)
+            lbl4=Label(master, text='Tool HalfDay rate',bg='white',fg='blue').place(x=20,y=190)
+            lbl5=Label(master, text='Tool FullDay rate',bg='white',fg='blue').place(x=20,y=220)
+            labl=Label(master, text=(self.a),bg='white',fg='blue').place(x=200,y=100)
+            lab2=Label(master, text=(self.b),bg='white',fg='blue').place(x=200,y=130)
+            lab3=Label(master, text=(self.d),bg='white',fg='blue').place(x=200,y=160)
+            lab4=Label(master, text=(self.e),bg='white',fg='blue').place(x=200,y=190)
+            lab4=Label(master, text=(self.f),bg='white',fg='blue').place(x=200,y=220)
         else:
-            me.showerror("Items error",'NO items found')
-            self.master.withdraw()
-            self.newWindow = Toplevel(self.master)
-            self.app = UserHome(self.newWindow)
-            self.newWindow.geometry('650x650')
-            self.newWindow.title("User Home")
+            Labl=Label(master, text="No items Uploaded yet", bg='white').place(x=150,y=150)
             
     def back(self):
             self.master.withdraw()
-            self.newWindow = Toplevel(self.master)
+            self.newWindow = Toplevel((self.master),bg='white')
             self.app = UserHome(self.newWindow)
             self.newWindow.geometry('650x650')
             self.newWindow.title("User Home")
@@ -774,7 +738,7 @@ class SearchTools(Frame):
                , command=self.back).place(x=250, y=350)
     def back(self):
             self.master.withdraw()
-            self.newWindow = Toplevel(self.master)
+            self.newWindow = Toplevel((self.master),bg='white')
             self.app = UserHome(self.newWindow)
             self.newWindow.geometry('650x650')
             self.newWindow.title("User Home")
@@ -809,14 +773,24 @@ class HireTools(UploadTools):
         global tool_name
         self.master=master
         self.frame=Frame(master)
-        self.label_toolname = Label(master, text="Tool Name", width=20, font=("arial", 17))
+
+        self.hire_icon=ImageTk.PhotoImage(file="images/hiring.png")
+        login_frame=Frame(master, bg="white")
+        login_frame.place(x=0,y=20)
+        logolbl1=Label(master, image=self.hire_icon, bg='white')
+        logolbl1.place(x=15,y=150)
+
+        self.label_head = Label(master, text="HIRE TOOL", width=20, font=("new times roman", 27),bg='white', fg='blue').place(x=100,y=25)
+
+        
+        self.label_toolname = Label(master, text="Tool Name", width=20, font=("arial", 17),bg='white', fg='blue')
 
         self.label_toolname.place(x=30, y=165)
         self.entry_toolname = Entry(master, bd=5, font=("arial", 13))
 
 
         self.entry_toolname.place(x=280, y=165, width=200, height=38)
-        self.label_hireDate = Label(master, text="Hire Date", width=20, font=("arial", 17))
+        self.label_hireDate = Label(master, text="Hire Date", width=20, font=("arial", 17),bg='white', fg='blue')
 
         self.label_hireDate.place(x=30, y=235)
 
@@ -828,7 +802,7 @@ class HireTools(UploadTools):
 
         self.entry_hireDate.insert(0, self.Date)
 
-        self.label_hireDays = Label(master, text="Hire Days", width=20, font=("arial", 17))
+        self.label_hireDays = Label(master, text="Hire Days", width=20, font=("arial", 17),bg='white', fg='blue')
 
         self.label_hireDays.place(x=23, y=305)
 
@@ -838,7 +812,7 @@ class HireTools(UploadTools):
 
         self.entry_hireDays.insert(0, " Max 3 Days")
 
-        self.label_rate = Label(master, text="Tool Rate", width=20, font=("arial", 17))
+        self.label_rate = Label(master, text="Tool Rate", width=20, font=("arial", 17),bg='white', fg='blue')
 
         self.label_rate.place(x=30, y=375)
 
@@ -848,7 +822,7 @@ class HireTools(UploadTools):
 
         self.tool_rate.insert(0, "200")
 
-        self.label_fullrate = Label(master, text="Full Day", width=20, font=("arial", 10))
+        self.label_fullrate = Label(master, text="Full Day", width=20, font=("arial", 10),bg='white', fg='blue')
 
         self.label_fullrate.place(x=243, y=418)
 
@@ -858,7 +832,7 @@ class HireTools(UploadTools):
 
         self.tool_rate2.insert(0, "100")
 
-        self.label_halfrate = Label(master, text="Half Day", width=20, font=("arial", 10))
+        self.label_halfrate = Label(master, text="Half Day", width=20, font=("arial", 10),bg='white', fg='blue')
 
         self.label_halfrate.place(x=353, y=418)
 
@@ -917,21 +891,21 @@ class HireTools(UploadTools):
             
                 me.showinfo("Hire Success","Successfully hire the tool")
                 self.master.withdraw()
-                self.newWindow = Toplevel(self.master)
+                self.newWindow = Toplevel((self.master),bg='white')
                 self.app = UserHome(self.newWindow)
                 self.newWindow.geometry('650x650')
                 self.newWindow.title("User Home")
             else:
                 me.showerror('Not Found',"items not found")
                 self.master.withdraw()
-                self.newWindow = Toplevel(self.master)
+                self.newWindow = Toplevel((self.master),bg='white')
                 self.app = HireTools(self.newWindow)
                 self.newWindow.geometry('650x650')
                 self.newWindow.title("All tool itmes")
             
     def cancel(self):
             self.master.withdraw()
-            self.newWindow = Toplevel(self.master)
+            self.newWindow = Toplevel((self.master),bg='white')
             self.app = UserHome(self.newWindow)
             self.newWindow.geometry('650x650')
             self.newWindow.title("User Home")
@@ -943,6 +917,13 @@ class ReturnTools(HireTools):
     def __init__(self,master):
         self.master=master
         self.frame=Frame(master)
+
+        self.pay_icon=ImageTk.PhotoImage(file="images/ret.jpg")
+        login_frame=Frame(master, bg="white")
+        login_frame.place(x=0,y=0)
+        logolbl1=Label(master, image=self.pay_icon, bg='white')
+        logolbl1.place(x=0,y=0)
+        
         self.label_toolname = Label(master, text="Tool Name", width=20, font=("arial", 17), bg='white')
 
         self.label_toolname.place(x=30, y=165)
@@ -962,7 +943,7 @@ class ReturnTools(HireTools):
         else:
             me.showerror("Items error",'NO items to return')
             self.master.withdraw()
-            self.newWindow = Toplevel(self.master)
+            self.newWindow = Toplevel((self.master),bg='white')
             self.app = UserHome(self.newWindow)
             self.newWindow.geometry('650x650')
             self.newWindow.title("All tool itmes")
@@ -988,14 +969,14 @@ class ReturnTools(HireTools):
             conn.commit()
             me.showinfo("Return Successful",'Successfully return your tool')
             self.master.withdraw()
-            self.newWindow = Toplevel(self.master)
+            self.newWindow = Toplevel((self.master),bg='white')
             self.app = UserHome(self.newWindow)
             self.newWindow.geometry('650x650')
             self.newWindow.title("All tool itmes")
         else:
             me.showerror('Not Found',"items not found")
             self.master.withdraw()
-            self.newWindow = Toplevel(self.master)
+            self.newWindow = Toplevel((self.master),bg='white')
             self.app = ReturnTools(self.newWindow)
             self.newWindow.geometry('650x650')
             self.newWindow.title("All tool itmes")
@@ -1003,7 +984,7 @@ class ReturnTools(HireTools):
             
     def back(self):
             self.master.withdraw()
-            self.newWindow = Toplevel(self.master)
+            self.newWindow = Toplevel((self.master),bg='white')
             self.app = UserHome(self.newWindow)
             self.newWindow.geometry('650x650')
             self.newWindow.title("User Home")
@@ -1016,7 +997,14 @@ class PaymentTools(Frame):
     def __init__(self,master):
         self.master=master
         self.frame=Frame(master)
-        self.pay13 = Label(master, text="Invoice ", font=("arial", 16, "bold")).place(x=150, y=50)
+        
+        self.pay_icon=ImageTk.PhotoImage(file="images/pay.png")
+        login_frame=Frame(master, bg="white")
+        login_frame.place(x=0,y=0)
+        logolbl1=Label(master, image=self.pay_icon, bg='white')
+        logolbl1.place(x=0,y=0)
+        
+        self.pay13 = Label(master, text="Invoice ", font=("arial", 18, "bold"),bg='white', fg='blue').place(x=250, y=30)
 
         c.execute('SELECT * FROM MyTools')
         data=c.fetchall()
@@ -1029,30 +1017,30 @@ class PaymentTools(Frame):
                 insurance_fullday=0.5*full_day
                 fullday_total=full_day+insurance_fullday
                 
-            labl1=Label(master,text='Tool HalfDay rate').place(x=20,y=100)
-            lbl2=Label(master, text='Insurance FullDay rate').place(x=20,y=130)
-            lbl3=Label(master, text='Tool FullDay rate').place(x=20,y=160)
-            lbl4=Label(master, text='Insurance FullDay rate').place(x=20,y=190)
-            lbl5=Label(master, text='Total HalfDay Rate').place(x=20,y=220)
-            lbl5=Label(master, text='Total FullDay Rate').place(x=20,y=250)
+            labl1=Label(master,text='Tool HalfDay rate',bg='white').place(x=20,y=100)
+            lbl2=Label(master, text='Insurance FullDay rate',bg='white').place(x=20,y=130)
+            lbl3=Label(master, text='Tool FullDay rate',bg='white').place(x=20,y=160)
+            lbl4=Label(master, text='Insurance FullDay rate',bg='white').place(x=20,y=190)
+            lbl5=Label(master, text='Total HalfDay Rate',bg='white').place(x=20,y=220)
+            lbl5=Label(master, text='Total FullDay Rate',bg='white').place(x=20,y=250)
                 
-            labl=Label(master, text=(half_day)).place(x=200,y=100)
-            lab2=Label(master, text=(insurance_halfday)).place(x=200,y=130)
-            lab3=Label(master, text=(halfday_total)).place(x=200,y=160)
-            lab4=Label(master, text=(full_day)).place(x=200,y=190)
-            lab4=Label(master, text=(insurance_fullday)).place(x=200,y=220)
-            lab4=Label(master, text=(fullday_total)).place(x=200,y=250)
+            labl=Label(master, text=(half_day),bg='white').place(x=200,y=100)
+            lab2=Label(master, text=(insurance_halfday),bg='white').place(x=200,y=130)
+            lab3=Label(master, text=(halfday_total),bg='white').place(x=200,y=160)
+            lab4=Label(master, text=(full_day),bg='white').place(x=200,y=190)
+            lab4=Label(master, text=(insurance_fullday),bg='white').place(x=200,y=220)
+            lab4=Label(master, text=(fullday_total),bg='white').place(x=200,y=250)
       
         else:
-            Labl=Label(master, text="ALL due clear").place(x=150,y=150)
-        self.pay_tools = Button(master, text="<--Go to Home", bg='blue', fg='white', command=self.back)
+            Labl=Label(master, text="ALL due has been cleared!!",bg="white", fg='black').place(x=100,y=100)
+        self.pay_tools = Button(master, text="Go to Home", bg='blue', fg='white', command=self.back)
 
         self.pay_tools.place(x=200, y=300)
 
             
     def back(self):
             self.master.withdraw()
-            self.newWindow = Toplevel(self.master)
+            self.newWindow = Toplevel((self.master),bg='white')
             self.app = UserHome(self.newWindow)
             self.newWindow.geometry('650x650')
             self.newWindow.title("User Home")
@@ -1069,9 +1057,10 @@ root.geometry('650x650')
 #Registration(root)
 #UserHome(root)
 #AdminHome(root)
-SecondPage(root)
+#SecondPage(root)
 #UploadTools(root)
 #SearchTools(root)
+AllTools(root)
 #HireTools(root)
 #ReturnTools(root)
 #PaymentTools(root)
