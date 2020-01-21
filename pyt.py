@@ -288,7 +288,7 @@ class UserHome(Frame):
         self.master=master
         self.frame = Frame(master)
         self.tool_name = StringVar()
-        self.menubar = Menu(master)
+        #self.menubar = Menu(master)
 ##        #Label(master, text="Costumer's Panel", bg='white', fg='maroon', font=('new times roman',25)).place(x=200,y=20)
 ### Adding File Menu and commands 
 ##        self.file = Menu(self.menubar, tearoff = 0) 
@@ -327,19 +327,21 @@ class UserHome(Frame):
         self.photo_a = Image.open("images/calendar.png")
         self.photo_a=self.photo_a.resize((25,26), Image.ANTIALIAS)
         self.pic_a=ImageTk.PhotoImage(self.photo_a)
-        self.calendar = Menu(self.menubar, tearoff = 0)
-        self.calendar.add_command( label='Calendar',command=self.calendar1)
-        self.menubar.add_cascade(image=self.pic_a, menu = self.calendar)
-        root.config(menu = self.menubar)
+        Button(master, image=self.pic_a, command=self.calendar1).place(x=0,y=0)
+##        self.calendar = Menu(self.menubar, tearoff = 0)
+##        self.calendar.add_command( label='Calendar',command=self.calendar1)
+##        self.menubar.add_cascade(image=self.pic_a, menu = self.calendar)
+##        root.config(menu = self.menubar)
 #=======================================================================================================
 
         self.photo_0 = Image.open("images/profile.png")
         self.photo_0=self.photo_0.resize((25,26), Image.ANTIALIAS)
         self.pic_0=ImageTk.PhotoImage(self.photo_0)
-        self.profile = Menu(self.menubar, tearoff = 0)
-        self.profile.add_command(label='Profile', command=self.profile2)
-        self.menubar.add_cascade(image=self.pic_0, menu = self.profile)
-        root.config(menu = self.menubar)
+        Button(master, image=self.pic_0, command=self.profile2).place(x=590,y=0)
+##        self.profile = Menu(self.menubar, tearoff = 0)
+##        self.profile.add_command(label='Profile', command=self.profile2)
+##        self.menubar.add_cascade(image=self.pic_0, menu = self.profile)
+##        root.config(menu = self.menubar)
 #========================================================================================================
 
         
@@ -347,10 +349,11 @@ class UserHome(Frame):
         self.photo_ = Image.open("images/logout.png")
         self.photo_=self.photo_.resize((25,26), Image.ANTIALIAS)
         self.pic_=ImageTk.PhotoImage(self.photo_)
-        self.logout = Menu(self.menubar, tearoff = 0)
-        self.logout.add_command(label='Logout', command=self.logOut)
-        self.menubar.add_cascade(image=self.pic_, menu = self.logout)
-        root.config(menu = self.menubar)
+        Button(master, image=self.pic_, command=self.logOut).place(x=620,y=0)
+##        self.logout = Menu(self.menubar, tearoff = 0)
+##        self.logout.add_command(label='Logout', command=self.logOut)
+##        self.menubar.add_cascade(image=self.pic_, menu = self.logout)
+##        root.config(menu = self.menubar)
 #==========================================================================================================
         self.photo = Image.open("images/search.jpg")
         self.photo=self.photo.resize((25,26), Image.ANTIALIAS)
@@ -446,7 +449,7 @@ class UserHome(Frame):
     def profile2(self):
         self.master.withdraw()
         self.newWindow = Toplevel((self.master),bg='white')
-        self.app = Rider(self.newWindow)
+        self.app = User1(self.newWindow)
         self.newWindow.geometry('650x650')
         self.newWindow.title("Profile")
 
@@ -514,28 +517,31 @@ class AdminHome(Frame):
         self.photo_a = Image.open("images/calendar.png")
         self.photo_a=self.photo_a.resize((25,26), Image.ANTIALIAS)
         self.pic_a=ImageTk.PhotoImage(self.photo_a)
-        self.calendar = Menu(self.menubar, tearoff = 0)
-        self.calendar.add_command( label='Calendar',command=self.calendar)
-        self.menubar.add_cascade(image=self.pic_a, menu = self.calendar)
-        root.config(menu = self.menubar)
+        Button(master, image=self.pic_a, command=self.calendaar).place(x=0,y=0)
+##        self.calendar = Menu(self.menubar, tearoff = 0)
+##        self.calendar.add_command( label='Calendar',command=self.calendar)
+##        self.menubar.add_cascade(image=self.pic_a, menu = self.calendar)
+##        root.config(menu = self.menubar)
 #=======================================================================================================
 
         self.photo_0 = Image.open("images/profile.png")
         self.photo_0=self.photo_0.resize((25,26), Image.ANTIALIAS)
         self.pic_0=ImageTk.PhotoImage(self.photo_0)
-        self.profile = Menu(self.menubar, tearoff = 0)
-        self.profile.add_command(label='Profile', command=self.profile1)
-        self.menubar.add_cascade(image=self.pic_0, menu = self.profile)
-        root.config(menu = self.menubar)
+        Button(master, image=self.pic_0, command=self.profile1).place(x=590,y=0)
+##        self.profile = Menu(self.menubar, tearoff = 0)
+##        self.profile.add_command(label='Profile', command=self.profile1)
+##        self.menubar.add_cascade(image=self.pic_0, menu = self.profile)
+##        root.config(menu = self.menubar)
 #========================================================================================================
         
         self.photo_ = Image.open("images/logout.png")
         self.photo_=self.photo_.resize((25,26), Image.ANTIALIAS)
         self.pic_=ImageTk.PhotoImage(self.photo_)
-        self.logout = Menu(self.menubar, tearoff = 0)
-        self.logout.add_command(label='Logout', command=self.logOut)
-        self.menubar.add_cascade(image=self.pic_, menu = self.logout)
-        root.config(menu = self.menubar)
+        Button(master, image=self.pic_, command=self.logOut).place(x=620,y=0)
+##        self.logout = Menu(self.menubar, tearoff = 0)
+##        self.logout.add_command(label='Logout', command=self.logOut)
+##        self.menubar.add_cascade(image=self.pic_, menu = self.logout)
+##        root.config(menu = self.menubar)
 
 #=========================================================================================================
 
@@ -648,7 +654,7 @@ class UploadTools(Frame):
         self.tool_condition = self.tool_condition.get()
         self.tool_halfday = self.tool_halfday.get()
         self.tool_fullday = self.tool_fullday.get()
-        if (len(self.tool_name)==0 and len(self.tool_description)==0 and len(self.tool_condition)==0 and len(self.tool_halfday)==0 and len(self.tool_fullday)==0):
+        if (len(self.tool_name)==0 or len(self.tool_description)==0 or len(self.tool_condition)==0 or len(self.tool_halfday)==0 or len(self.tool_fullday)==0):
             me.showerror('Incorrect Credientitals','No fields must be empty')
             self.master.withdraw()
             self.newWindow = Toplevel((self.master),bg='white')
@@ -825,6 +831,63 @@ class AllTools1:
             self.master.withdraw()
             self.newWindow = Toplevel((self.master),bg='white')
             self.app = AdminHome(self.newWindow)
+            self.newWindow.geometry('650x650')
+            self.newWindow.title("User Home")
+
+
+
+class AllTools2:
+    def __init__(self, master):
+        self.master=master
+        self.frame=Frame(master)
+
+
+        self.pay_icon=ImageTk.PhotoImage(file="images/view.jpg")
+        login_frame=Frame(master, bg="white")
+        login_frame.place(x=0,y=0)
+        logolbl1=Label(master, image=self.pay_icon, bg='white')
+        logolbl1.place(x=0,y=0)
+
+
+
+        self.photo3 = Image.open("images/l.png")
+        self.photo3 = self.photo3.resize((120,120), Image.ANTIALIAS)
+        self.pic3 = ImageTk.PhotoImage(self.photo3)
+        self.lbl2=Label(master, image=self.pic3, bd=0, bg="white").place(x=500, y=0)
+
+        self.lab=Label(master, text='ALL Tools',font=('new times roman',18), bg='white', fg='blue').place(x=150,y=20)
+        Button(master, text='Go to Home', font=("arial", 13, "bold"), width=10, bg='maroon', fg='white', command=self.back).place(x=250, y=550)
+        c.execute('SELECT * FROM ToolsInfo')
+        data=c.fetchall()
+        if data:
+##            file=open('/home/niraj/Desktop/final/Text File Handling\image.txt')
+##            f=file.readlines() 
+##            imgd=ImageTk.PhotoImage([f])
+##            panel=Label(image=imgd,height=28,width=30).pack()
+            for elem in data:
+                self.a=elem[0]
+                self.b=elem[1]
+                self.d=elem[2]
+                self.e=elem[3]
+                self.f=elem[4]
+            #labl_img=Label(master, text=self.img).place(x=50,y=50)
+            labl1=Label(master,text='Tool Name',bg='white',fg='blue').place(x=20,y=100)
+            lbl2=Label(master, text='Tool Description',bg='white',fg='blue').place(x=20,y=130)
+            lbl3=Label(master, text='Tool Condition',bg='white',fg='blue').place(x=20,y=160)
+            lbl4=Label(master, text='Tool HalfDay rate',bg='white',fg='blue').place(x=20,y=190)
+            lbl5=Label(master, text='Tool FullDay rate',bg='white',fg='blue').place(x=20,y=220)
+            labl=Label(master, text=(self.a),bg='white',fg='blue').place(x=200,y=100)
+            lab2=Label(master, text=(self.b),bg='white',fg='blue').place(x=200,y=130)
+            lab3=Label(master, text=(self.d),bg='white',fg='blue').place(x=200,y=160)
+            lab4=Label(master, text=(self.e),bg='white',fg='blue').place(x=200,y=190)
+            lab4=Label(master, text=(self.f),bg='white',fg='blue').place(x=200,y=220)
+        else:
+            Labl=Label(master, text="No items Uploaded yet", bg='white').place(x=150,y=150)
+            
+    def back(self):
+            self.master.withdraw()
+            self.newWindow = Toplevel((self.master),bg='white')
+            self.app = CheckTools(self.newWindow)
             self.newWindow.geometry('650x650')
             self.newWindow.title("User Home")
             
@@ -1189,39 +1252,56 @@ class CheckTools(Frame):
         Label(master, text="Insurance Panel", bg='white', fg='maroon', font=('new times roman',25)).place(x=200,y=20)
 
 #=======================================================================================================
-
-        
-        self.photo_a = Image.open("images/calendar.png")
-        self.photo_a=self.photo_a.resize((25,26), Image.ANTIALIAS)
-        self.pic_a=ImageTk.PhotoImage(self.photo_a)
-        self.calendar = Menu(master, tearoff = 0)
-        self.calendar.add_command( label='Calendar',command=self.calendar)
-        self.menubar.add_cascade(image=self.pic_a, menu = self.calendar)
-        root.config(menu = self.menubar)
-#=======================================================================================================
-
-        self.photo_0 = Image.open("images/profile.png")
-        self.photo_0=self.photo_0.resize((25,26), Image.ANTIALIAS)
-        self.pic_0=ImageTk.PhotoImage(self.photo_0)
-        self.profile = Menu(self.menubar, tearoff = 0)
-        self.profile.add_command(label='Profile', command=self.profile)
-        self.menubar.add_cascade(image=self.pic_0, menu = self.profile)
-        root.config(menu = self.menubar)
-#========================================================================================================
-        
-        self.photo_ = Image.open("images/logout.png")
-        self.photo_=self.photo_.resize((25,26), Image.ANTIALIAS)
-        self.pic_=ImageTk.PhotoImage(self.photo_)
-        self.logout = Menu(self.menubar, tearoff = 0)
-        self.logout.add_command(label='Logout', command=self.logOut)
-        self.menubar.add_cascade(image=self.pic_, menu = self.logout)
-        root.config(menu = self.menubar)
+##
+##        
+##        self.photo_a = Image.open("images/calendar.png")
+##        self.photo_a=self.photo_a.resize((25,26), Image.ANTIALIAS)
+##        self.pic_a=ImageTk.PhotoImage(self.photo_a)
+##        self.calendar = Menu(master, tearoff = 0)
+##        self.calendar.add_command( label='Calendar',command=self.calendar)
+##        self.menubar.add_cascade(image=self.pic_a, menu = self.calendar)
+##        root.config(menu = self.menubar)
+###=======================================================================================================
+##
+##        self.photo_0 = Image.open("images/profile.png")
+##        self.photo_0=self.photo_0.resize((25,26), Image.ANTIALIAS)
+##        self.pic_0=ImageTk.PhotoImage(self.photo_0)
+##        self.profile = Menu(self.menubar, tearoff = 0)
+##        self.profile.add_command(label='Profile', command=self.profile)
+##        self.menubar.add_cascade(image=self.pic_0, menu = self.profile)
+##        root.config(menu = self.menubar)
+###========================================================================================================
+##        
+##        self.photo_ = Image.open("images/logout.png")
+##        self.photo_=self.photo_.resize((25,26), Image.ANTIALIAS)
+##        self.pic_=ImageTk.PhotoImage(self.photo_)
+##        self.logout = Menu(self.menubar, tearoff = 0)
+##        self.logout.add_command(label='Logout', command=self.logOut)
+##        self.menubar.add_cascade(image=self.pic_, menu = self.logout)
+##        root.config(menu = self.menubar)
 
 
         self.photo3 = Image.open("images/l.png")
         self.photo3 = self.photo3.resize((120,120), Image.ANTIALIAS)
         self.pic3 = ImageTk.PhotoImage(self.photo3)
         self.lbl2=Label(master, image=self.pic3, bd=0, bg="white").place(x=0, y=0)
+
+        self.photo_a = Image.open("images/calendar.png")
+        self.photo_a=self.photo_a.resize((25,26), Image.ANTIALIAS)
+        self.pic_a=ImageTk.PhotoImage(self.photo_a)
+        Button(master, image=self.pic_a, command=self.calendaar).place(x=560,y=0)
+
+
+        self.photo_0 = Image.open("images/profile.png")
+        self.photo_0=self.photo_0.resize((25,26), Image.ANTIALIAS)
+        self.pic_0=ImageTk.PhotoImage(self.photo_0)
+        Button(master, image=self.pic_0, command=self.profile1).place(x=590,y=0)
+
+        
+        self.photo_ = Image.open("images/logout.png")
+        self.photo_=self.photo_.resize((25,26), Image.ANTIALIAS)
+        self.pic_=ImageTk.PhotoImage(self.photo_)
+        Button(master, image=self.pic_, command=self.logOut).place(x=620,y=0)
 
         self.photo1 = Image.open("images/profile.jpg")
         self.photo1=self.photo1.resize((250,250), Image.ANTIALIAS)
@@ -1233,7 +1313,7 @@ class CheckTools(Frame):
         self.photo2 = Image.open("images/hire.png")
         self.photo2=self.photo2.resize((250,250), Image.ANTIALIAS)
         self.pic2=ImageTk.PhotoImage(self.photo2)
-        self.btn2=Button(master, image=self.pic2).place(x=320,y=150)
+        self.btn2=Button(master, image=self.pic2, command=self.all_tools).place(x=320,y=150)
         self.lbl2=Label(master, text='All Tools', width=17, font=("", 18)).place(x=320, y=370)
 
         self.lbl=Label(master,text="@copyright from developers", bg="white").place(x=150,y=620)
@@ -1253,6 +1333,22 @@ class CheckTools(Frame):
             self.app = User(self.newWindow)
             self.newWindow.geometry('650x650')
             self.newWindow.title("User Home")
+
+    def all_tools(self):
+            self.master.withdraw()
+            self.newWindow = Toplevel((self.master),bg='white')
+            self.app = AllTools2(self.newWindow)
+            self.newWindow.geometry('650x650')
+            self.newWindow.title("User Home")
+
+
+    def calendaar(self):
+        self.master.withdraw()
+        self.newWindow = Toplevel((self.master),bg='white')
+        self.app = AdminHome(self.newWindow)
+        self.newWindow.geometry('650x650')
+        self.newWindow.title("Calendar")
+    
 
 #================================================================================================================================
 
@@ -1287,6 +1383,40 @@ class User(Frame):
             self.master.withdraw()
             self.newWindow = Toplevel((self.master),bg='white')
             self.app = CheckTools(self.newWindow)
+            self.newWindow.geometry('650x650')
+            self.newWindow.title("User Home")
+
+class User1(Frame):
+    def __init__(self,master):
+        self.master=master
+        self.frame=Frame
+        Label(master, text='Profile', font=('arial', 15),bg='white', fg='maroon').place(x=200,y=20)
+        Button(master, text='Go to Home', font=('arial', 12),bg='maroon', fg='white', command=self.back).place(x=200,y=450)
+        c.execute('SELECT * FROM UserInfo')
+        details=c.fetchall()
+        if details:
+            for detail in details:
+                self.firstname=detail[0]
+                self.lastname=detail[1]
+                self.username=detail[2]
+                self.password=detail[3]
+                labl1=Label(master,text='First Name',bg='white',fg='blue', font=('new times roman',12)).place(x=20,y=100)
+                lbl2=Label(master, text='Last Name',bg='white',fg='blue', font=('new times roman',12)).place(x=20,y=130)
+                lbl3=Label(master, text='Username',bg='white',fg='blue', font=('new times roman',12)).place(x=20,y=160)
+                lbl4=Label(master, text='Password',bg='white',fg='blue', font=('new times roman',12)).place(x=20,y=190)
+
+                labl=Label(master, text=(self.firstname),bg='white',fg='blue', font=('new times roman',12)).place(x=200,y=100)
+                lab2=Label(master, text=(self.lastname),bg='white',fg='blue', font=('new times roman',12)).place(x=200,y=130)
+                lab3=Label(master, text=(self.username),bg='white',fg='blue', font=('new times roman',12)).place(x=200,y=160)
+                lab4=Label(master, text=(self.password),bg='white',fg='blue', font=('new times roman',12)).place(x=200,y=190)
+        else:
+            Label(master,text='No accounts are registerd yet', bg='white').place(x=250,y=250)
+
+            
+    def back(self):
+            self.master.withdraw()
+            self.newWindow = Toplevel((self.master),bg='white')
+            self.app = UserHome(self.newWindow)
             self.newWindow.geometry('650x650')
             self.newWindow.title("User Home")
 
