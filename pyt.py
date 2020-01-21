@@ -87,7 +87,7 @@ class Login(Frame):
             me.showinfo("Login",
                        "Successfully logged in as buyer")
             self.master.withdraw()
-            self.newWindow = Toplevel(self.master)
+            self.newWindow = Toplevel((self.master),bg='white')
             self.app = UserHome(self.newWindow)
             self.newWindow.geometry('650x650')
             self.newWindow.title("Home Page")
@@ -96,7 +96,7 @@ class Login(Frame):
             print("success")
             me.showinfo("Login",'Successfully logged in as seller')
             self.master.withdraw()
-            self.newWindow = Toplevel(self.master)
+            self.newWindow = Toplevel((self.master),bg='white')
             self.app = AdminHome(self.newWindow)
             self.newWindow.geometry('650x650')
             self.newWindow.title("Home Page")
@@ -104,7 +104,7 @@ class Login(Frame):
         elif ((self.username.get())=="insurance" and (self.password.get())=='insurance'):
             me.showinfo("Login",'Successfully logged in as Insurance')
             self.master.withdraw()
-            self.newWindow = Toplevel(self.master)
+            self.newWindow = Toplevel((self.master),bg='white')
             self.app = CheckTools(self.newWindow)
             self.newWindow.geometry('650x650')
             self.newWindow.title("Home Page")
@@ -337,7 +337,7 @@ class UserHome(Frame):
         self.photo_0=self.photo_0.resize((25,26), Image.ANTIALIAS)
         self.pic_0=ImageTk.PhotoImage(self.photo_0)
         self.profile = Menu(self.menubar, tearoff = 0)
-        self.profile.add_command(label='Profile', command=self.profile)
+        self.profile.add_command(label='Profile', command=self.profile2)
         self.menubar.add_cascade(image=self.pic_0, menu = self.profile)
         root.config(menu = self.menubar)
 #========================================================================================================
@@ -362,7 +362,7 @@ class UserHome(Frame):
         self.photo1 = Image.open("images/search.png")
         self.photo1=self.photo1.resize((250,250), Image.ANTIALIAS)
         self.pic1=ImageTk.PhotoImage(self.photo1)
-        self.btn1=Button(master, image=self.pic1, command=self.all_items).place(x=60,y=80)
+        self.btn1=Button(master, image=self.pic1, command=lambda:self.all_items(self.master)).place(x=60,y=80)
         self.lbl1=Label(master, text='All Tools', width=17, font=("", 18)).place(x=60, y=300)
 #==========================================================================================================
         self.photo2 = Image.open("images/hire.png")
@@ -408,23 +408,24 @@ class UserHome(Frame):
         else:
             me.showerror("Items error",'NO items found')
             self.master.withdraw()
-            self.newWindow = Toplevel(self.master)
+            self.newWindow = Toplevel((self.master), bg='white')
             self.app = UserHome(self.newWindow)
             self.newWindow.geometry('650x650')
             self.newWindow.title("All tool itmes")
 
     def back(self):
-            self.master.withdraw()
-            self.newWindow = Toplevel((self.master),bg='white')
-            self.app = UserHome(self.newWindow)
-            self.newWindow.geometry('650x650')
-            self.newWindow.title("User Home")
+        self.master.withdraw()
+        #self.newWindow = Toplevel((self.master),bg='white')
+        self.app = UserHome(self.newWindow)
+        self.newWindow.geometry('650x650')
+        self.newWindow.title("User Home")
                
 
-    def all_items(self):
+    def all_items(self, home):
+        self.home = home
         self.master.withdraw()
         self.newWindow = Toplevel((self.master),bg='white')
-        self.app = AllTools(self.newWindow)
+        self.app = AllTools(self.newWindow, self.home)
         self.newWindow.geometry('650x650')
         self.newWindow.title("All tool itmes")
 
@@ -442,10 +443,10 @@ class UserHome(Frame):
         self.newWindow.geometry('650x650')
         self.newWindow.title("Return Tools")
 
-    def profile(self):
+    def profile2(self):
         self.master.withdraw()
         self.newWindow = Toplevel((self.master),bg='white')
-        self.app = AdminHome(self.newWindow)
+        self.app = Rider(self.newWindow)
         self.newWindow.geometry('650x650')
         self.newWindow.title("Profile")
 
@@ -513,7 +514,7 @@ class AdminHome(Frame):
         self.photo_a = Image.open("images/calendar.png")
         self.photo_a=self.photo_a.resize((25,26), Image.ANTIALIAS)
         self.pic_a=ImageTk.PhotoImage(self.photo_a)
-        self.calendar = Menu(master, tearoff = 0)
+        self.calendar = Menu(self.menubar, tearoff = 0)
         self.calendar.add_command( label='Calendar',command=self.calendar)
         self.menubar.add_cascade(image=self.pic_a, menu = self.calendar)
         root.config(menu = self.menubar)
@@ -555,7 +556,7 @@ class AdminHome(Frame):
         self.btn2=Button(master, image=self.pic2, command=self.upload).place(x=320,y=150)
         self.lbl2=Label(master, text='Upload Tools', width=17, font=("", 18)).place(x=320, y=370)
 
-        self.lbl=Label(master,text="@copyright from developers", bg="white").place(x=150,y=620)
+        self.lbl=Label(master,text="@copyright from developers of lenden", bg="white").place(x=150,y=620)
 
     def all_tools(self):
         self.master.withdraw()
@@ -606,6 +607,7 @@ class UploadTools(Frame):
         self.tool_condition = StringVar()
         self.tool_halfday = StringVar()
         self.tool_fullday = StringVar()
+        Label(master, text="Upload Tools", bg='white', fg='Maroon', width=20,font=("arial", 25)).place(x=140,y=10)
 
 
         self.photo3 = Image.open("images/l.png")
@@ -704,7 +706,7 @@ class UploadImage(Frame):
         print(file_path)
     def store_image(self):
         self.store = file_path
-        file = open("Text File Handling\YUploadTools.txt", "a")
+        file = open("Text File Handling\image.txt", "a")
         file.write("ToolImage:    ")
         file.write(self.store)
         file.write("\n")
@@ -719,8 +721,9 @@ class UploadImage(Frame):
 
 
 #==================================================================================================
-class AllTools:
-    def __init__(self, master):
+class AllTools(Frame):
+    def __init__(self, master, home):
+        self.home = home
         self.master=master
         self.frame=Frame(master)
 
@@ -763,11 +766,12 @@ class AllTools:
             Labl=Label(master, text="No items Uploaded yet", bg='white').place(x=150,y=150)
             
     def back(self):
-            self.master.withdraw()
-            self.newWindow = Toplevel((self.master),bg='white')
-            self.app = UserHome(self.newWindow)
-            self.newWindow.geometry('650x650')
-            self.newWindow.title("User Home")
+            self.master.destroy()
+            self.home.deiconify()
+##            self.newWindow = Toplevel((self.master),bg='white')
+##            self.app = UserHome(self.newWindow)
+##            self.newWindow.geometry('650x650')
+##            self.newWindow.title("User Home")
 
 class AllTools1:
     def __init__(self, master):
@@ -793,12 +797,17 @@ class AllTools1:
         c.execute('SELECT * FROM ToolsInfo')
         data=c.fetchall()
         if data:
+##            file=open('/home/niraj/Desktop/final/Text File Handling\image.txt')
+##            f=file.readlines() 
+##            imgd=ImageTk.PhotoImage([f])
+##            panel=Label(image=imgd,height=28,width=30).pack()
             for elem in data:
                 self.a=elem[0]
                 self.b=elem[1]
                 self.d=elem[2]
                 self.e=elem[3]
                 self.f=elem[4]
+            #labl_img=Label(master, text=self.img).place(x=50,y=50)
             labl1=Label(master,text='Tool Name',bg='white',fg='blue').place(x=20,y=100)
             lbl2=Label(master, text='Tool Description',bg='white',fg='blue').place(x=20,y=130)
             lbl3=Label(master, text='Tool Condition',bg='white',fg='blue').place(x=20,y=160)
@@ -872,6 +881,7 @@ class SearchTools(Frame):
 class HireTools(UploadTools):
     def __init__(self,master):
         global tool_name
+        global want_rider
         self.master=master
         self.frame=Frame(master)
 
@@ -995,11 +1005,9 @@ class HireTools(UploadTools):
                       (self.nameTool, self.b, self.c, self.FullRate, self.HalfRate,self.g))
                 c.execute("DELETE FROM ToolsInfo WHERE ToolName=?", (self.nameTool,))
                 conn.commit()
-            
-                me.showinfo("Hire Success","Successfully hire the tool")
                 self.master.withdraw()
                 self.newWindow = Toplevel((self.master),bg='white')
-                self.app = UserHome(self.newWindow)
+                self.app = Rider(self.newWindow)
                 self.newWindow.geometry('650x650')
                 self.newWindow.title("User Home")
             else:
@@ -1014,6 +1022,13 @@ class HireTools(UploadTools):
             self.master.withdraw()
             self.newWindow = Toplevel((self.master),bg='white')
             self.app = UserHome(self.newWindow)
+            self.newWindow.geometry('650x650')
+            self.newWindow.title("User Home")
+
+    def rider(self):
+            self.master.withdraw()
+            self.newWindow = Toplevel((self.master),bg='white')
+            self.app = Rider(self.newWindow)
             self.newWindow.geometry('650x650')
             self.newWindow.title("User Home")
         
@@ -1169,7 +1184,7 @@ class PaymentTools(Frame):
 class CheckTools(Frame):
     def __init__(self, master):
         self.master=master
-        self.frame=Frame(master)
+        self.frame=Frame((master), bg='white')
         self.menubar = Menu(master)
         Label(master, text="Insurance Panel", bg='white', fg='maroon', font=('new times roman',25)).place(x=200,y=20)
 
@@ -1291,6 +1306,71 @@ class Calendar1(Frame):
             self.newWindow.geometry('650x650')
             self.newWindow.title("User Home")
 
+class Rider(Frame):
+    def __init__(self,master):
+        global entry_toolname
+        global want_rider
+        self.master=master
+        self.frame=Frame(master)
+        Label(master, text='Rider Profile', bg='White', fg='maroon',font=('new times roman',18)).place(x=150,y=10)
+        Label(master, text='id', bg='White', fg='blue',font=('new times roman',10)).place(x=10,y=50)
+        Label(master, text='Name', bg='White', fg='blue',font=('new times roman',10)).place(x=10,y=80)
+        Label(master, text='Email', bg='White', fg='blue',font=('new times roman',10)).place(x=10,y=110)
+        Label(master, text='Contact', bg='White', fg='blue',font=('new times roman',10)).place(x=10,y=140)
+
+        Label(master, text='001', bg='White', fg='blue',font=('new times roman',10)).place(x=100,y=50)
+        Label(master, text='Aayush Khanal', bg='White', fg='blue',font=('new times roman',10)).place(x=100,y=80)
+        Label(master, text='ayushkhanal@gmail.com', bg='White', fg='blue',font=('new times roman',10)).place(x=100,y=110)
+        Label(master, text='**********', bg='White', fg='blue',font=('new times roman',10)).place(x=100,y=140)
+        
+        Label(master, text='id', bg='White', fg='blue',font=('new times roman',10)).place(x=10,y=200)
+        Label(master, text='Name', bg='White', fg='blue',font=('new times roman',10)).place(x=10,y=230)
+        Label(master, text='Email', bg='White', fg='blue',font=('new times roman',10)).place(x=10,y=260)
+        Label(master, text='Contact', bg='White', fg='blue',font=('new times roman',10)).place(x=10,y=290)
+
+        Label(master, text='002', bg='White', fg='blue',font=('new times roman',10)).place(x=100,y=200)
+        Label(master, text='Santosh Shahi Thakuri', bg='White', fg='blue',font=('new times roman',10)).place(x=100,y=230)
+        Label(master, text='santoshshahi@gmail.com', bg='White', fg='blue',font=('new times roman',10)).place(x=100,y=260)
+        Label(master, text='**********', bg='White', fg='blue',font=('new times roman',10)).place(x=100,y=290)
+
+                
+        Label(master, text='id', bg='White', fg='blue',font=('new times roman',10)).place(x=10,y=340)
+        Label(master, text='Name', bg='White', fg='blue',font=('new times roman',10)).place(x=10,y=370)
+        Label(master, text='Email', bg='White', fg='blue',font=('new times roman',10)).place(x=10,y=400)
+        Label(master, text='Contact', bg='White', fg='blue',font=('new times roman',10)).place(x=10,y=430)
+
+        Label(master, text='003', bg='White', fg='blue',font=('new times roman',10)).place(x=100,y=340)
+        Label(master, text='Roshan Bist', bg='White', fg='blue',font=('new times roman',10)).place(x=100,y=370)
+        Label(master, text='roshanbist@gmail.com', bg='White', fg='blue',font=('new times roman',10)).place(x=100,y=400)
+        Label(master, text='**********', bg='White', fg='blue',font=('new times roman',10)).place(x=100,y=430)
+
+        Label(master, text='id', bg='White', fg='blue',font=('new times roman',10)).place(x=10,y=480)
+        Label(master, text='Name', bg='White', fg='blue',font=('new times roman',10)).place(x=10,y=510)
+        Label(master, text='Email', bg='White', fg='blue',font=('new times roman',10)).place(x=10,y=540)
+        Label(master, text='Contact', bg='White', fg='blue',font=('new times roman',10)).place(x=10,y=570)
+
+        Label(master, text='004', bg='White', fg='blue',font=('new times roman',10)).place(x=100,y=480)
+        Label(master, text='Niraj Poudel', bg='White', fg='blue',font=('new times roman',10)).place(x=100,y=510)
+        Label(master, text='nirajpoudel@gmail.com', bg='White', fg='blue',font=('new times roman',10)).place(x=100,y=540)
+        Label(master, text='**********', bg='White', fg='blue',font=('new times roman',10)).place(x=100,y=570) 
+
+        Button(master, text="Cancel", bg='maroon', fg='white', command=self.back).place(x=100, y=600)
+        Button(master, text="Wanna Continue", bg='maroon', fg='white', command=self.next).place(x=300, y=600)
+
+    def back(self):
+        self.master.withdraw()
+        self.newWindow = Toplevel((self.master),bg='white')
+        self.app = HireTools(self.newWindow)
+        self.newWindow.geometry('650x650')
+        self.newWindow.title("User Home")
+
+    def next(self):
+        self.master.withdraw()
+        self.newWindow = Toplevel((self.master),bg='white')
+        self.app = HireTools(self.newWindow)
+        self.newWindow.geometry('650x650')
+        self.newWindow.title("User Home")
+        me.showinfo("Hire Success","Successfully hire the tool")
         
             
         
@@ -1301,18 +1381,19 @@ root.geometry('650x650')
 #obj=MainPage(root)
 #obj.progressBar()
 #Login(root)
-Registration(root)
+#Registration(root)
 #UserHome(root)
 #AdminHome(root)
-#SecondPage(root)
+SecondPage(root)
 #UploadTools(root)
 #SearchTools(root)
-#AllTools(root)
+#AllTools1(root)
 #HireTools(root)
 #ReturnTools(root)
 #PaymentTools(root)
 #CheckTools(root)
 #User(root)
 #Calendar1(root)
+#Rider(root)
 root.configure(bg="white")
 #root.mainloop()
