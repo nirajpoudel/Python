@@ -1,0 +1,9 @@
+1.Customers are not allowed to buy two things at once.
+
+2.Once buyed first return that tool to hire another one.
+
+3.Customers are not allowed to book the tool.
+
+4.If Customers are not able to return time in time they 
+  have to pay 50% tool charge for each half day.
+

@@ -1,0 +1,8 @@
+ToolImage:    /home/niraj/Desktop/final/images/bg.jpg
+ToolImage:    /home/niraj/Desktop/final/images/bg.jpg
+ToolImage:    /home/niraj/Desktop/final/images/hiring.png
+ToolImage:    /home/niraj/Desktop/final/images/hiring.jpg
+ToolImage:    /home/niraj/Desktop/final/images/calendar.png
+ToolImage:    /home/niraj/Desktop/final/images/l.png
+ToolImage:    /home/niraj/Desktop/final/images/calendar.png
+ToolImage:    /home/niraj/Desktop/final/images/lg.jpg
