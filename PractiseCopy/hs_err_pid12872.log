@@ -1,0 +1,159 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGSEGV (0xb) at pc=0x00007f8538428990, pid=12872, tid=13915
+#
+# JRE version: OpenJDK Runtime Environment (11.0.7+10) (build 11.0.7+10-post-Ubuntu-2ubuntu218.04)
+# Java VM: OpenJDK 64-Bit Server VM (11.0.7+10-post-Ubuntu-2ubuntu218.04, mixed mode, sharing, tiered, compressed oops, g1 gc, linux-amd64)
+# Problematic frame:
+# J 3400 c2 jdk.internal.module.SystemModuleFinders$SystemModuleReader.findImageLocation(Ljava/lang/String;)Ljdk/internal/jimage/ImageLocation; java.base@11.0.7 (42 bytes) @ 0x00007f8538428990 [0x00007f8538428760+0x0000000000000230]
+#
+# Core dump will be written. Default location: Core dumps may be processed with "/usr/share/apport/apport %p %s %c %d %P %E" (or dumping to /home/niraj/core.12872)
+#
+# If you would like to submit a bug report, please visit:
+#   https://bugs.launchpad.net/ubuntu/+source/openjdk-lts
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: -Djdk.home=/usr/lib/jvm/java-11-openjdk-amd64 -Dnetbeans.default_userdir_root=/home/niraj/snap/netbeans/common/data -Dnetbeans.running.environment=gnome -Dnetbeans.dirs=/snap/netbeans/24/netbeans/nb:/snap/netbeans/24/netbeans/ergonomics:/snap/netbeans/24/netbeans/ide:/snap/netbeans/24/netbeans/extide:/snap/netbeans/24/netbeans/java:/snap/netbeans/24/netbeans/apisupport:/snap/netbeans/24/netbeans/webcommon:/snap/netbeans/24/netbeans/websvccommon:/snap/netbeans/24/netbeans/enterprise:/snap/netbeans/24/netbeans/mobility:/snap/netbeans/24/netbeans/profiler:/snap/netbeans/24/netbeans/python:/snap/netbeans/24/netbeans/php:/snap/netbeans/24/netbeans/identity:/snap/netbeans/24/netbeans/harness:/snap/netbeans/24/netbeans/cnd:/snap/netbeans/24/netbeans/cndext:/snap/netbeans/24/netbeans/dlight:/snap/netbeans/24/netbeans/groovy:/snap/netbeans/24/netbeans/extra:/snap/netbeans/24/netbeans/javacard:/snap/netbeans/24/netbeans/javafx: -Dnetbeans.home=/snap/netbeans/24/netbeans/platform -Dnetbeans.importclass=org.netbeans.upgrade.AutoUpgrade -XX:+UseStringDeduplication -Djdk.lang.Process.allowAmbiguousCommands=true -Xss2m -Djdk.gtk.version=2.2 -Dplugin.manager.install.global=false -Dapple.awt.graphics.UseQuartz=true -Dsun.java2d.noddraw=true -Dsun.java2d.dpiaware=true -Dsun.zip.disableMemoryMapping=true -Dplugin.manager.check.updates=false -Dnetbeans.extbrowser.manual_chrome_plugin_install=yes --add-opens=java.base/java.net=ALL-UNNAMED --add-opens=java.base/java.lang.ref=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.security=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.desktop/javax.swing.plaf.basic=ALL-UNNAMED --add-opens=java.desktop/javax.swing.text=ALL-UNNAMED --add-opens=java.desktop/javax.swing=ALL-UNNAMED --add-opens=java.desktop/java.awt=ALL-UNNAMED --add-opens=java.desktop/java.awt.event=ALL-UNNAMED --add-opens=java.prefs/java.util.prefs=ALL-UNNAMED --add-opens=jdk.jshell/jdk.jshell=ALL-UNNAMED --add-modules=jdk.jshell --add-exports=java.desktop/sun.awt=ALL-UNNAMED --add-exports=java.desktop/java.awt.peer=ALL-UNNAMED --add-exports=java.desktop/com.sun.beans.editors=ALL-UNNAMED --add-exports=java.desktop/sun.swing=ALL-UNNAMED --add-exports=java.desktop/sun.awt.im=ALL-UNNAMED --add-exports=jdk.internal.jvmstat/sun.jvmstat.monitor=ALL-UNNAMED --add-exports=java.management/sun.management=ALL-UNNAMED --add-exports=java.base/sun.reflect.annotation=ALL-UNNAMED -XX:+IgnoreUnrecognizedVMOptions -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/home/niraj/snap/netbeans/common/data/11.3/var/log/heapdump.hprof org.netbeans.Main --cachedir /home/niraj/snap/netbeans/common/cache/11.3 --userdir /home/niraj/snap/netbeans/common/data/11.3 --branding nb
+
+Host: Intel(R) Core(TM) i3-5005U CPU @ 2.00GHz, 4 cores, 3G, Ubuntu 18.04.4 LTS
+Time: Thu Apr 30 16:42:53 2020 +0545 elapsed time: 1437 seconds (0d 0h 23m 57s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00007f84d44d1000):  JavaThread "FileUtil-Refresh-All" daemon [_thread_in_Java, id=13915, stack(0x00007f8494552000,0x00007f8494753000)]
+
+Stack: [0x00007f8494552000,0x00007f8494753000],  sp=0x00007f849474ecf0,  free space=2035k
+Native frames: (J=compiled Java code, A=aot compiled Java code, j=interpreted, Vv=VM code, C=native code)
+J 3400 c2 jdk.internal.module.SystemModuleFinders$SystemModuleReader.findImageLocation(Ljava/lang/String;)Ljdk/internal/jimage/ImageLocation; java.base@11.0.7 (42 bytes) @ 0x00007f8538428990 [0x00007f8538428760+0x0000000000000230]
+J 10075 c2 jdk.internal.loader.BuiltinClassLoader$2.run()Ljava/lang/Object; java.base@11.0.7 (5 bytes) @ 0x00007f85387c7144 [0x00007f85387c6b20+0x0000000000000624]
+v  ~StubRoutines::call_stub
+V  [libjvm.so+0x84e319]
+V  [libjvm.so+0x90278f]  JVM_DoPrivileged+0x61f
+J 1541  java.security.AccessController.doPrivileged(Ljava/security/PrivilegedExceptionAction;)Ljava/lang/Object; java.base@11.0.7 (0 bytes) @ 0x00007f853845b212 [0x00007f853845b140+0x00000000000000d2]
+J 6814 c2 jdk.internal.loader.BuiltinClassLoader.findMiscResource(Ljava/lang/String;)Ljava/util/List; java.base@11.0.7 (118 bytes) @ 0x00007f8538636ed8 [0x00007f8538636ba0+0x0000000000000338]
+J 19928 c1 jdk.internal.loader.BuiltinClassLoader.findResources(Ljava/lang/String;)Ljava/util/Enumeration; java.base@11.0.7 (182 bytes) @ 0x00007f8532ab70dc [0x00007f8532ab6020+0x00000000000010bc]
+J 19986 c1 java.lang.ClassLoader.getResources(Ljava/lang/String;)Ljava/util/Enumeration; java.base@11.0.7 (55 bytes) @ 0x00007f8532abe434 [0x00007f8532abdf00+0x0000000000000534]
+J 27446 c2 org.netbeans.ProxyClassLoader.getResourcesImpl(Ljava/lang/String;)Ljava/util/Enumeration; (314 bytes) @ 0x00007f85391cf580 [0x00007f85391ce4e0+0x00000000000010a0]
+J 9470 c1 org.netbeans.ModuleManager$SystemClassLoader.getResourcesImpl(Ljava/lang/String;)Ljava/util/Enumeration; (66 bytes) @ 0x00007f853200fea4 [0x00007f853200fce0+0x00000000000001c4]
+J 16865 c2 org.netbeans.ProxyClassLoader.getResources(Ljava/lang/String;)Ljava/util/Enumeration; (6 bytes) @ 0x00007f853875eb6c [0x00007f853875eb20+0x000000000000004c]
+J 22178 c1 org.openide.util.lookup.MetaInfServicesLookup.search(Ljava/lang/Class;Ljava/util/Collection;)V (870 bytes) @ 0x00007f853339ed04 [0x00007f853339e500+0x0000000000000804]
+J 21534 c2 org.openide.util.lookup.MetaInfServicesLookup.beforeLookup(Lorg/openide/util/Lookup$Template;)V (277 bytes) @ 0x00007f8538d87dd4 [0x00007f8538d87860+0x0000000000000574]
+j  org.openide.util.lookup.MetaInfServicesLookup.beforeLookupResult(Lorg/openide/util/Lookup$Template;)V+2
+J 28499 c2 org.openide.util.lookup.AbstractLookup.lookup(Lorg/openide/util/Lookup$Template;)Lorg/openide/util/Lookup$Result; (118 bytes) @ 0x00007f85392a4954 [0x00007f85392a4900+0x0000000000000054]
+J 14141 c2 org.openide.util.lookup.ProxyLookup$R.myBeforeLookup(ZZ)[Lorg/openide/util/Lookup$Result; (71 bytes) @ 0x00007f85388f428c [0x00007f85388f3f00+0x000000000000038c]
+J 19855 c2 org.openide.util.lookup.ProxyLookup$R.computeResult(IZ)Ljava/util/Collection; (151 bytes) @ 0x00007f8538cc1a84 [0x00007f8538cc1960+0x0000000000000124]
+J 22626 c2 org.openide.util.lookup.ProxyLookup$R.allInstances()Ljava/util/Collection; (6 bytes) @ 0x00007f8538757668 [0x00007f8538757620+0x0000000000000048]
+j  org.netbeans.modules.parsing.impl.indexing.RepositoryUpdater.authorize(Lorg/openide/filesystems/FileEvent;)Z+4
+j  org.netbeans.modules.parsing.impl.indexing.RepositoryUpdater.fileDeletedImpl(Lorg/openide/filesystems/FileEvent;Ljava/lang/Boolean;)V+16
+j  org.netbeans.modules.parsing.impl.indexing.RepositoryUpdater.access$5500(Lorg/netbeans/modules/parsing/impl/indexing/RepositoryUpdater;Lorg/openide/filesystems/FileEvent;Ljava/lang/Boolean;)V+3
+j  org.netbeans.modules.parsing.impl.indexing.RepositoryUpdater$FCL.fileDeleted(Lorg/openide/filesystems/FileEvent;)V+9
+j  org.openide.filesystems.FileChangeImpl.fileDeleted(Lorg/openide/filesystems/FileEvent;)V+51
+J 29077 c1 org.openide.filesystems.FCLSupport$DispatchEventWrapper.dispatchEventImpl(Lorg/openide/filesystems/FileChangeListener;Lorg/openide/filesystems/FileEvent;Lorg/openide/filesystems/FCLSupport$Op;Ljava/util/Collection;)V (362 bytes) @ 0x00007f8533e2eea4 [0x00007f8533e2e760+0x0000000000000744]
+J 29074 c1 org.openide.filesystems.FCLSupport$DispatchEventWrapperSingle.dispatchAllEventsSync(Ljava/util/Collection;)V (18 bytes) @ 0x00007f8533e2dddc [0x00007f8533e2dd40+0x000000000000009c]
+J 14699 c1 org.openide.filesystems.FCLSupport$DispatchEventWrapper.dispatchEvent(ZLjava/util/Collection;)V (32 bytes) @ 0x00007f85329aca24 [0x00007f85329ac780+0x00000000000002a4]
+J 4825 c1 org.openide.filesystems.FileObject$ED.dispatch(ZLjava/util/Collection;)V (345 bytes) @ 0x00007f8531837294 [0x00007f8531836ec0+0x00000000000003d4]
+J 21985 c2 org.openide.filesystems.EventControl.exitAtomicAction(Z)V (226 bytes) @ 0x00007f8538c02cc4 [0x00007f8538c02960+0x0000000000000364]
+J 17860 c1 org.openide.filesystems.FileSystem.runAtomicAction(Lorg/openide/filesystems/FileSystem$AtomicAction;)V (9 bytes) @ 0x00007f8532f8a194 [0x00007f8532f89be0+0x00000000000005b4]
+j  org.netbeans.modules.masterfs.filebasedfs.fileobjects.FileObjectFactory.refresh(Lorg/netbeans/modules/masterfs/filebasedfs/fileobjects/RefreshSlow;ZZ)V+51
+j  org.netbeans.modules.masterfs.filebasedfs.fileobjects.RootObj.invokeRefreshFor(Lorg/netbeans/modules/masterfs/filebasedfs/fileobjects/RefreshSlow;[Ljava/io/File;Z)V+412
+j  org.netbeans.modules.masterfs.filebasedfs.fileobjects.RootObj.invokeRefreshFor(Lorg/netbeans/modules/masterfs/filebasedfs/fileobjects/RefreshSlow;[Ljava/io/File;)V+3
+j  org.netbeans.modules.masterfs.filebasedfs.fileobjects.RootObj.setAttribute(Ljava/lang/String;Ljava/lang/Object;)V+24
+j  org.openide.filesystems.FileUtil.refreshFor([Ljava/io/File;)V+16
+j  org.openide.filesystems.FileUtil$1.run()V+11
+J 6477 c1 org.openide.util.RequestProcessor$Task.run()V (186 bytes) @ 0x00007f8531a1d0bc [0x00007f8531a1ce00+0x00000000000002bc]
+J 24631 c1 org.netbeans.modules.openide.util.GlobalLookup.execute(Lorg/openide/util/Lookup;Ljava/lang/Runnable;)Z (60 bytes) @ 0x00007f853393ba74 [0x00007f853393b360+0x0000000000000714]
+J 24630 c1 org.openide.util.lookup.Lookups.executeWith(Lorg/openide/util/Lookup;Ljava/lang/Runnable;)V (15 bytes) @ 0x00007f853393ad3c [0x00007f853393ace0+0x000000000000005c]
+j  org.openide.util.RequestProcessor$Processor.run()V+259
+v  ~StubRoutines::call_stub
+V  [libjvm.so+0x84e319]
+V  [libjvm.so+0x84c45d]
+V  [libjvm.so+0x8f62ec]
+V  [libjvm.so+0xd8918f]
+V  [libjvm.so+0xd85acf]
+V  [libjvm.so+0xbd59de]
+
+
+siginfo: si_signo: 11 (SIGSEGV), si_code: 1 (SEGV_MAPERR), si_addr: 0x00007f853f91bfa8
+
+Register to memory mapping:
+
+RAX=0x0000000000008010 is an unknown value
+RBX=0x0000000000000062 is an unknown value
+RCX=0x00000000000083ac is an unknown value
+RDX=0x0000000000003be3 is an unknown value
+RSP=0x00007f849474ecf0 is pointing into the stack for thread: 0x00007f84d44d1000
+RBP=0x00000000c3c7a2e8 points into unknown readable memory: 0d 00 00 00 00 00 00 00
+RSI=0x00000000fff2c7f0 points into unknown readable memory: 01 9b b1 1d 2e 00 00 00
+RDI=0x00000000d980ed58 points into unknown readable memory: 01 00 00 00 00 00 00 00
+R8 =0x00007f853f90d01c is an unknown value
+R9 =0x0000000000000007 is an unknown value
+R10=0x00000000fff2c7f0 points into unknown readable memory: 01 9b b1 1d 2e 00 00 00
+R11=0x00007f853f91bfa8 is an unknown value
+R12=0x0 is NULL
+R13=0x00000000c3c7a2e8 points into unknown readable memory: 0d 00 00 00 00 00 00 00
+R14=0x00000000000083ac is an unknown value
+R15=0x00007f84d44d1000 is a thread
+
+
+Registers:
+RAX=0x0000000000008010, RBX=0x0000000000000062, RCX=0x00000000000083ac, RDX=0x0000000000003be3
+RSP=0x00007f849474ecf0, RBP=0x00000000c3c7a2e8, RSI=0x00000000fff2c7f0, RDI=0x00000000d980ed58
+R8 =0x00007f853f90d01c, R9 =0x0000000000000007, R10=0x00000000fff2c7f0, R11=0x00007f853f91bfa8
+R12=0x0000000000000000, R13=0x00000000c3c7a2e8, R14=0x00000000000083ac, R15=0x00007f84d44d1000
+RIP=0x00007f8538428990, EFLAGS=0x0000000000010212, CSGSFS=0x002b000000000033, ERR=0x0000000000000004
+  TRAPNO=0x000000000000000e
+
+Top of Stack: (sp=0x00007f849474ecf0)
+0x00007f849474ecf0:   00007f8413c87c70 00000000c3c7a110
+0x00007f849474ed00:   c3c7a1109474ee10 00007f854f98c241
+0x00007f849474ed10:   00007f849474ed00 00007f84d44d1000
+0x00007f849474ed20:   00000000a2210500 00007f85481f1020 
+
+Instructions: (pc=0x00007f8538428990)
+0x00007f8538428890:   00 8b 48 0c 3b d9 0f 83 9e 08 00 00 0f b6 44 18
+0x00007f85384288a0:   10 8b e8 83 e5 80 85 ed 0f 85 1c 08 00 00 85 c0
+0x00007f85384288b0:   0f 84 4c 08 00 00 45 69 db 93 01 00 01 44 33 d8
+0x00007f85384288c0:   ff c3 41 3b d8 7c b9 8b 47 0c 44 8b 40 0c 0f be
+0x00007f85384288d0:   4f 14 41 d3 f8 45 69 db 93 01 00 01 41 83 f3 2f
+0x00007f85384288e0:   45 85 c0 7e 50 33 db eb 0e 0f 1f 80 00 00 00 00
+0x00007f85384288f0:   8b 47 0c 0f be 4f 14 85 c9 0f 85 67 07 00 00 8b
+0x00007f8538428900:   48 0c 3b d9 0f 83 d8 08 00 00 0f b6 44 18 10 8b
+0x00007f8538428910:   e8 83 e5 80 85 ed 0f 85 5a 08 00 00 85 c0 0f 84
+0x00007f8538428920:   8a 08 00 00 45 69 db 93 01 00 01 44 33 d8 ff c3
+0x00007f8538428930:   41 3b d8 7c bb 41 81 e3 ff ff ff 7f 45 85 f6 0f
+0x00007f8538428940:   84 cd 0a 00 00 41 8b c3 3d 00 00 00 80 75 08 33
+0x00007f8538428950:   d2 41 83 fe ff 74 04 99 41 f7 fe 45 8b 45 08 41
+0x00007f8538428960:   81 f8 ff 93 02 00 0f 85 a6 0b 00 00 49 8b ed 85
+0x00007f8538428970:   d2 0f 8c af 0a 00 00 8b 4d 1c 3b d1 0f 8d a4 0a
+0x00007f8538428980:   00 00 4c 8b 45 10 4c 63 da 49 c1 e3 02 4d 03 d8
+0x00007f8538428990:   41 8b 1b 85 db 0f 8d 7e 02 00 00 ba ff ff ff ff
+0x00007f85384289a0:   2b d3 eb 77 0f 1f 84 00 00 00 00 00 66 66 66 90
+0x00007f85384289b0:   8b 47 0c 0f be 4f 14 85 c9 0f 85 b8 08 00 00 8b
+0x00007f85384289c0:   50 0c 3b da 0f 83 10 0a 00 00 0f b6 4c 18 10 8b
+0x00007f85384289d0:   e9 83 e5 80 85 ed 0f 85 9a 09 00 00 85 c9 0f 84
+0x00007f85384289e0:   c2 09 00 00 45 69 db 93 01 00 01 44 33 d9 ff c3
+0x00007f85384289f0:   41 3b d8 7c bb 41 81 e3 ff ff ff 7f 45 85 f6 0f
+0x00007f8538428a00:   84 2d 0d 00 00 41 8b c3 3d 00 00 00 80 75 08 33
+0x00007f8538428a10:   d2 41 83 fe ff 74 04 99 41 f7 fe 44 8b 5c 24 14
+0x00007f8538428a20:   41 8b 6b 30 44 8b 5d 08 41 81 fb ff 93 02 00 0f
+0x00007f8538428a30:   85 35 0b 00 00 85 d2 0f 8c fd 0a 00 00 44 8b 45
+0x00007f8538428a40:   1c 41 3b d0 0f 8d f0 0a 00 00 4c 89 4c 24 28 48
+0x00007f8538428a50:   89 74 24 18 44 89 54 24 10 48 89 3c 24 4c 8b 5d
+0x00007f8538428a60:   10 4c 63 d2 49 c1 e2 02 4d 03 d3 41 8b 12 48 8b
+0x00007f8538428a70:   74 24 08 90 c5 f8 77 e8 b4 6c 1a 00 44 8b 58 0c
+0x00007f8538428a80:   44 8b 54 24 14 45 8b 42 3c 41 83 fb 01 0f 86 f7 
+
+
+Stack slot to memory mapping:
+stack at sp + 0 slots: 0x00007f8413c87c70 is an unknown value
+stack at sp + 1 slots: 0x00000000c3c7a110 points into unknown readable memory: 40 ed 74 94 84 7f 00 00
+stack at sp + 2 slots: 0xc3c7a1109474ee10 is an unknown value
+stack at sp + 3 slots: 0x00007f854f98c241: <offset 0x0000000000a31241> in /usr/lib/jvm/java-11-openjdk-amd64/lib/server/libjvm.so at 0x00007f854ef5b000
+stack at sp + 4 slots: 0x00007f849474ed00 is pointing into the stack for thread: 0x00007f84d44d1000
+stack at sp + 5 slots: 0x00007f84d44d1000 is a thread
+stack at sp + 6 slots: 0x00000000a2210500 is an unknown value
+stack at sp + 7 slots: 0x00007f85481f1020 points into unknown readable memory: 6b 00 00 00 85 7f 00 00
+
